@@ -26,6 +26,28 @@ export type Product = {
   created_at: string;
 };
 
+export type Contact = {
+  connection_id: number;
+  other_id: number;
+  name: string;
+  nickname: string;
+  role: 'manufacturer' | 'accountant' | 'staff' | 'buyer' | 'partner';
+  avatar_url: string | null;
+  phone: string | null;
+  staff_id: number | null;
+  debt: number;
+};
+
+export type SearchResult = {
+  id: number;
+  name: string;
+  nickname: string;
+  role: string;
+  avatar_url: string | null;
+  phone: string | null;
+  connected: boolean;
+};
+
 export type User = {
   id: number;
   email: string;
@@ -128,4 +150,13 @@ export const api = {
     form.append('image', file);
     return upload<{ url: string }>(`/uploads/image?kind=${kind}`, form);
   },
+
+  // Connections / Contacts
+  listContacts: () => request<{ contacts: Contact[] }>('/connections'),
+  searchUsers: (q: string) =>
+    request<{ results: SearchResult[] }>(`/connections/search?q=${encodeURIComponent(q)}`),
+  addConnection: (userId: number) =>
+    request<{ connection_id: number }>('/connections', { method: 'POST', body: JSON.stringify({ userId }) }),
+  deleteConnection: (id: number) =>
+    request<{ ok: true }>(`/connections/${id}`, { method: 'DELETE' }),
 };

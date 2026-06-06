@@ -152,6 +152,20 @@
     "buyerEmpty": "Sotuvchida hali mahsulot yo'q",
     "showOutOfStock": "Tugagan mahsulotlarni ham ko'rsatish"
   },
+  "contacts": {
+    "add": "Qo'shish",
+    "searchTitle": "Qidirib qo'shish",
+    "searchPh": "Nickname, ism yoki telefon",
+    "searchHint": "Topish uchun yozishni boshlang",
+    "searchEmpty": "Hech kim topilmadi",
+    "connected": "Qo'shilgan",
+    "filterAll": "Hammasi",
+    "filterDebtors": "Qarzdorlar",
+    "debt": "Qarz",
+    "empty": "Hali bog'lanish yo'q",
+    "emptyHint": "＋ orqali yangi foydalanuvchi qo'shing",
+    "noDebtors": "Qarzdorlar yo'q"
+  },
   "units": {
     "dona": "dona", "kg": "kg", "litr": "litr", "metr": "metr",
     "tonna": "tonna", "karobka": "karobka", "pachka": "pachka",

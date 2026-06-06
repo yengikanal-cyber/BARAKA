@@ -152,6 +152,20 @@
     "buyerEmpty": "У продавца пока нет товаров",
     "showOutOfStock": "Показывать также закончившиеся"
   },
+  "contacts": {
+    "add": "Добавить",
+    "searchTitle": "Найти и добавить",
+    "searchPh": "Никнейм, имя или телефон",
+    "searchHint": "Начните вводить для поиска",
+    "searchEmpty": "Никого не найдено",
+    "connected": "Добавлен",
+    "filterAll": "Все",
+    "filterDebtors": "Должники",
+    "debt": "Долг",
+    "empty": "Пока нет контактов",
+    "emptyHint": "Добавьте пользователя через ＋",
+    "noDebtors": "Должников нет"
+  },
   "units": {
     "dona": "шт", "kg": "кг", "litr": "л", "metr": "м",
     "tonna": "т", "karobka": "коробка", "pachka": "пачка",

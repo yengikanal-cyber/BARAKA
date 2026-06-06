@@ -152,6 +152,20 @@
     "buyerEmpty": "The seller has no products yet",
     "showOutOfStock": "Show out-of-stock items too"
   },
+  "contacts": {
+    "add": "Add",
+    "searchTitle": "Find and add",
+    "searchPh": "Nickname, name or phone",
+    "searchHint": "Start typing to search",
+    "searchEmpty": "Nobody found",
+    "connected": "Added",
+    "filterAll": "All",
+    "filterDebtors": "Debtors",
+    "debt": "Debt",
+    "empty": "No contacts yet",
+    "emptyHint": "Add a user with ＋",
+    "noDebtors": "No debtors"
+  },
   "units": {
     "dona": "pc", "kg": "kg", "litr": "L", "metr": "m",
     "tonna": "t", "karobka": "box", "pachka": "pack",

@@ -1,5 +1,4 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { Layout } from './components/Layout';
@@ -15,18 +14,6 @@ import { Team } from './pages/Team';
 import { Partners } from './pages/Partners';
 import { Rewards } from './pages/Rewards';
 import { Notifications } from './pages/Notifications';
-
-function Stub({ titleKey }: { titleKey: string }) {
-  const { t } = useTranslation();
-  return (
-    <div className="max-w-3xl mx-auto py-4">
-      <div className="card text-center py-10">
-        <div className="font-display text-xl font-semibold mb-1">{t(titleKey)}</div>
-        <div className="muted text-sm">{t('common.soon')}</div>
-      </div>
-    </div>
-  );
-}
 
 function ProtectedRoutes() {
   const { user, loading } = useAuth();

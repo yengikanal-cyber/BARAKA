@@ -249,5 +249,31 @@
     "description": "Описание",
     "photo": "Фото",
     "types": { "news": "Новость", "discount": "Скидка", "product": "Товар" }
+  },
+  "rewards": {
+    "title": "Награды",
+    "subtitle": "Поощрения для самых активных клиентов",
+    "add": "Добавить награду",
+    "editTitle": "Редактировать награду",
+    "titleField": "Название",
+    "criteriaField": "Критерий",
+    "criteria": { "volume": "По обороту", "paid": "По оплате" },
+    "topNField": "Сколько победителей (TOP)",
+    "topN": "TOP {{count}}",
+    "startDate": "Начало",
+    "endDate": "Конец",
+    "allTime": "Весь период",
+    "description": "Описание",
+    "photo": "Фото",
+    "leaders": "Лидеры",
+    "noLeaders": "Пока нет результатов",
+    "youQualify": "Вы среди победителей ({{rank}} место)",
+    "yourRank": "Ваше место: {{rank}}",
+    "notRanked": "Вы пока не в рейтинге",
+    "empty": "Пока нет наград",
+    "emptyHint": "Добавьте награду для поощрения клиентов",
+    "emptyBuyer": "У продавцов пока нет наград",
+    "removeTitle": "Удалить награду",
+    "removeConfirm": "Удалить эту награду?"
   }
 }

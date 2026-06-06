@@ -16,6 +16,7 @@ import statsRoutes from './routes/stats';
 import teamRoutes from './routes/team';
 import partnersRoutes from './routes/partners';
 import storiesRoutes from './routes/stories';
+import rewardsRoutes from './routes/rewards';
 
 const app = express();
 const PORT = Number(process.env.PORT || 4000);
@@ -47,6 +48,7 @@ app.use('/api/stats', statsRoutes);
 app.use('/api/team', teamRoutes);
 app.use('/api/partners', partnersRoutes);
 app.use('/api/stories', storiesRoutes);
+app.use('/api/rewards', rewardsRoutes);
 
 app.use((err: any, _req: any, res: any, _next: any) => {
   console.error(err);

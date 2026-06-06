@@ -249,5 +249,31 @@
     "description": "Tavsif",
     "photo": "Rasm",
     "types": { "news": "Yangilik", "discount": "Chegirma", "product": "Mahsulot" }
+  },
+  "rewards": {
+    "title": "Sovg'alar",
+    "subtitle": "Eng faol mijozlar uchun rag'batlar",
+    "add": "Sovg'a qo'shish",
+    "editTitle": "Sovg'ani tahrirlash",
+    "titleField": "Nomi",
+    "criteriaField": "Mezon",
+    "criteria": { "volume": "Aylanma bo'yicha", "paid": "To'langan bo'yicha" },
+    "topNField": "Nechta g'olib (TOP)",
+    "topN": "TOP {{count}}",
+    "startDate": "Boshlanish",
+    "endDate": "Tugash",
+    "allTime": "Butun davr",
+    "description": "Tavsif",
+    "photo": "Rasm",
+    "leaders": "Yetakchilar",
+    "noLeaders": "Hozircha natija yo'q",
+    "youQualify": "Siz g'oliblar orasidasiz ({{rank}}-o'rin)",
+    "yourRank": "Sizning o'rningiz: {{rank}}",
+    "notRanked": "Hali reytingda emassiz",
+    "empty": "Hali sovg'a yo'q",
+    "emptyHint": "Mijozlarni rag'batlantirish uchun sovg'a qo'shing",
+    "emptyBuyer": "Sotuvchilarda hozircha sovg'a yo'q",
+    "removeTitle": "Sovg'ani o'chirish",
+    "removeConfirm": "Ushbu sovg'ani o'chirilsinmi?"
   }
 }

@@ -249,5 +249,31 @@
     "description": "Description",
     "photo": "Photo",
     "types": { "news": "News", "discount": "Discount", "product": "Product" }
+  },
+  "rewards": {
+    "title": "Rewards",
+    "subtitle": "Incentives for your most active clients",
+    "add": "Add reward",
+    "editTitle": "Edit reward",
+    "titleField": "Name",
+    "criteriaField": "Criteria",
+    "criteria": { "volume": "By turnover", "paid": "By paid amount" },
+    "topNField": "Number of winners (TOP)",
+    "topN": "TOP {{count}}",
+    "startDate": "Start",
+    "endDate": "End",
+    "allTime": "All time",
+    "description": "Description",
+    "photo": "Photo",
+    "leaders": "Leaders",
+    "noLeaders": "No results yet",
+    "youQualify": "You're among the winners (rank {{rank}})",
+    "yourRank": "Your rank: {{rank}}",
+    "notRanked": "Not ranked yet",
+    "empty": "No rewards yet",
+    "emptyHint": "Add a reward to motivate your clients",
+    "emptyBuyer": "Sellers have no rewards yet",
+    "removeTitle": "Delete reward",
+    "removeConfirm": "Delete this reward?"
   }
 }

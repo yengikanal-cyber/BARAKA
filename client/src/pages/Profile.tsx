@@ -438,6 +438,20 @@ export function Profile() {
         </section>
       )}
 
+      {/* Rewards (everyone) */}
+      <section className="card">
+        <button onClick={() => nav('/rewards')} className="w-full flex items-center gap-3 text-left spring">
+          <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgb(var(--accent-500) / 0.14)', color: 'rgb(var(--accent-700))' }}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8z"/></svg>
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="font-semibold">{t('rewards.title')}</div>
+            <div className="text-xs muted">{t('rewards.subtitle')}</div>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="w-5 h-5 muted"><path d="M9 6l6 6-6 6" /></svg>
+        </button>
+      </section>
+
       {/* Password */}
       <section className="card">
         <h2 className="font-semibold mb-4">{t('profile.password')}</h2>

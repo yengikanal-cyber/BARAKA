@@ -80,6 +80,31 @@ export type StoryGroup = {
   stories: Story[];
 };
 
+export type RewardLeader = {
+  user: { id: number; name: string; nickname: string; avatar_url: string | null } | null;
+  total: number;
+  rank: number;
+};
+
+export type Reward = {
+  id: number;
+  manufacturer: { id: number; name: string; nickname: string; avatar_url: string | null } | null;
+  title: string;
+  photo_url: string | null;
+  description: string | null;
+  period_type: 'month' | 'quarter' | 'custom';
+  start_date: string | null;
+  end_date: string | null;
+  criteria: 'volume' | 'paid';
+  top_n: number;
+  created_at: string;
+  leaders: RewardLeader[];
+  // buyer-side extras
+  myRank?: number | null;
+  myTotal?: number;
+  qualifying?: boolean;
+};
+
 export type Partner = {
   id: number;
   name: string;
@@ -277,6 +302,30 @@ export const api = {
   createStory: (body: { type: 'news' | 'discount' | 'product'; title: string; description?: string | null; discount_percent?: number | null; photo_url?: string | null }) =>
     request<{ story: Story }>('/stories', { method: 'POST', body: JSON.stringify(body) }),
   deleteStory: (id: number) => request<{ ok: true }>(`/stories/${id}`, { method: 'DELETE' }),
+
+  // Rewards
+  listRewards: () => request<{ rewards: Reward[]; canManage: boolean }>('/rewards'),
+  createReward: (body: {
+    title: string;
+    photo_url?: string | null;
+    description?: string | null;
+    period_type?: 'month' | 'quarter' | 'custom';
+    start_date?: string | null;
+    end_date?: string | null;
+    criteria?: 'volume' | 'paid';
+    top_n?: number;
+  }) => request<{ reward: Reward }>('/rewards', { method: 'POST', body: JSON.stringify(body) }),
+  updateReward: (id: number, body: Partial<{
+    title: string;
+    photo_url: string | null;
+    description: string | null;
+    period_type: 'month' | 'quarter' | 'custom';
+    start_date: string | null;
+    end_date: string | null;
+    criteria: 'volume' | 'paid';
+    top_n: number;
+  }>) => request<{ reward: Reward }>(`/rewards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  deleteReward: (id: number) => request<{ ok: true }>(`/rewards/${id}`, { method: 'DELETE' }),
 
   // Stats
   statsSummary: () => request<{ debt: number; turnover: number; paid: number; contacts: number }>('/stats/summary'),

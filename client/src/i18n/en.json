@@ -156,6 +156,13 @@
     "buyerEmpty": "The seller has no products yet",
     "showOutOfStock": "Show out-of-stock items too"
   },
+  "reports": {
+    "returns": "Returns",
+    "monthly": "Last 6 months turnover",
+    "topClients": "Top clients",
+    "topSellers": "Top sellers",
+    "topProducts": "Top products"
+  },
   "chat": {
     "empty": "No messages yet. Write or add an operation.",
     "messagePh": "Type a message...",

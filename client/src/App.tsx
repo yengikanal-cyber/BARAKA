@@ -10,6 +10,7 @@ import { Profile } from './pages/Profile';
 import { Catalog } from './pages/Catalog';
 import { Contacts } from './pages/Contacts';
 import { Chat } from './pages/Chat';
+import { Reports } from './pages/Reports';
 
 function Stub({ titleKey }: { titleKey: string }) {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ function ProtectedRoutes() {
         <Route path="/sellers" element={<Contacts />} />
         <Route path="/chat/:otherId" element={<Chat />} />
         <Route path="/catalog" element={<Catalog />} />
-        <Route path="/reports" element={<Stub titleKey="nav.reports" />} />
+        <Route path="/reports" element={<Reports />} />
         <Route path="/messages" element={<Stub titleKey="nav.messages" />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Navigate to="/" replace />} />

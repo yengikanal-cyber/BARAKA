@@ -64,6 +64,15 @@ export type User = {
   created_at: string;
 } & AppearanceSettings;
 
+export type StatsReport = {
+  cards: { turnover: number; paid: number; debt: number; returns: number };
+  counts: { delivery: number; order: number; return: number };
+  monthly: { month: string; total: number }[];
+  topPartners: { user: { id: number; name: string; nickname: string; avatar_url: string | null } | null; total: number }[];
+  topProducts: { name: string; qty: number; total: number }[];
+  sellerSide: boolean;
+};
+
 export type TxType = 'delivery' | 'order' | 'return';
 export type TxStatus = 'pending' | 'accepted' | 'delivered' | 'paid' | 'rejected';
 
@@ -220,6 +229,7 @@ export const api = {
 
   // Stats
   statsSummary: () => request<{ debt: number; turnover: number; paid: number; contacts: number }>('/stats/summary'),
+  statsReport: () => request<StatsReport>('/stats/report'),
 
   // Chat + transactions
   getChat: (otherId: number) => request<ChatData>(`/chat/${otherId}`),

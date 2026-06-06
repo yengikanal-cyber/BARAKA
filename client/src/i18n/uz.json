@@ -156,6 +156,13 @@
     "buyerEmpty": "Sotuvchida hali mahsulot yo'q",
     "showOutOfStock": "Tugagan mahsulotlarni ham ko'rsatish"
   },
+  "reports": {
+    "returns": "Qaytarishlar",
+    "monthly": "So'nggi 6 oy aylanmasi",
+    "topClients": "Eng faol mijozlar",
+    "topSellers": "Eng faol sotuvchilar",
+    "topProducts": "Eng ko'p sotilgan tovarlar"
+  },
   "chat": {
     "empty": "Hali xabar yo'q. Yozing yoki amal qo'shing.",
     "messagePh": "Xabar yozing...",

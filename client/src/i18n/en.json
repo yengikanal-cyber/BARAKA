@@ -152,6 +152,43 @@
     "buyerEmpty": "The seller has no products yet",
     "showOutOfStock": "Show out-of-stock items too"
   },
+  "chat": {
+    "empty": "No messages yet. Write or add an operation.",
+    "messagePh": "Type a message...",
+    "notFound": "Chat not found"
+  },
+  "tx": {
+    "newTitle": "New operation",
+    "create": "Create",
+    "createError": "Could not create operation",
+    "total": "Total",
+    "note": "Note",
+    "notePh": "Optional note",
+    "reason": "Reason",
+    "reasonPh": "Reason for return",
+    "itemName": "Product name",
+    "pickProducts": "Pick from catalog",
+    "noProducts": "No products found",
+    "addManual": "Add manually",
+    "type": {
+      "delivery": "Delivery",
+      "order": "Order",
+      "return": "Return"
+    },
+    "status": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "delivered": "Delivered",
+      "paid": "Paid",
+      "rejected": "Rejected"
+    },
+    "action": {
+      "accept": "Accept",
+      "deliver": "Delivered",
+      "pay": "Paid",
+      "reject": "Reject"
+    }
+  },
   "contacts": {
     "add": "Add",
     "searchTitle": "Find and add",

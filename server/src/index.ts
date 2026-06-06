@@ -10,6 +10,8 @@ import profileRoutes from './routes/profile';
 import productsRoutes from './routes/products';
 import uploadsRoutes from './routes/uploads';
 import connectionsRoutes from './routes/connections';
+import chatRoutes from './routes/chat';
+import transactionsRoutes from './routes/transactions';
 
 const app = express();
 const PORT = Number(process.env.PORT || 4000);
@@ -35,6 +37,8 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/uploads', uploadsRoutes);
 app.use('/api/connections', connectionsRoutes);
+app.use('/api/chat', chatRoutes);
+app.use('/api/transactions', transactionsRoutes);
 
 app.use((err: any, _req: any, res: any, _next: any) => {
   console.error(err);

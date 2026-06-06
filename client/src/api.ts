@@ -64,6 +64,64 @@ export type User = {
   created_at: string;
 } & AppearanceSettings;
 
+export type TxType = 'delivery' | 'order' | 'return';
+export type TxStatus = 'pending' | 'accepted' | 'delivered' | 'paid' | 'rejected';
+
+export type TxItem = {
+  id: number;
+  product_id: number | null;
+  name: string;
+  unit: string;
+  price: number;
+  quantity: number;
+  reason: string | null;
+};
+
+export type Transaction = {
+  id: number;
+  manufacturer_id: number;
+  buyer_id: number;
+  type: TxType;
+  status: TxStatus;
+  total: number;
+  note: string | null;
+  reason: string | null;
+  created_by: number;
+  created_at: string;
+  delivered_at: string | null;
+  paid_at: string | null;
+  accepted_at: string | null;
+  items: TxItem[];
+};
+
+export type ChatMessage = {
+  id: number;
+  sender_id: number;
+  body: string;
+  created_at: string;
+};
+
+export type TimelineItem =
+  | { kind: 'message'; at: string; message: ChatMessage }
+  | { kind: 'transaction'; at: string; transaction: Transaction };
+
+export type ChatData = {
+  other: { id: number; name: string; nickname: string; role: string; avatar_url: string | null; phone: string | null } | null;
+  connection_id: number;
+  iAmSeller: boolean;
+  debt: number;
+  timeline: TimelineItem[];
+};
+
+export type NewTxItem = {
+  product_id?: number | null;
+  name: string;
+  unit: string;
+  price: number;
+  quantity: number;
+  reason?: string | null;
+};
+
 async function request<T>(path: string, opts: RequestInit = {}): Promise<T> {
   const res = await fetch(`/api${path}`, {
     credentials: 'include',
@@ -159,4 +217,13 @@ export const api = {
     request<{ connection_id: number }>('/connections', { method: 'POST', body: JSON.stringify({ userId }) }),
   deleteConnection: (id: number) =>
     request<{ ok: true }>(`/connections/${id}`, { method: 'DELETE' }),
+
+  // Chat + transactions
+  getChat: (otherId: number) => request<ChatData>(`/chat/${otherId}`),
+  sendMessage: (otherId: number, body: string) =>
+    request<{ message: ChatMessage }>(`/chat/${otherId}/message`, { method: 'POST', body: JSON.stringify({ body }) }),
+  createTransaction: (body: { otherId: number; type: TxType; items: NewTxItem[]; note?: string | null }) =>
+    request<{ transaction: Transaction; debt: number }>('/transactions', { method: 'POST', body: JSON.stringify(body) }),
+  txAction: (id: number, action: 'accept' | 'deliver' | 'pay' | 'reject') =>
+    request<{ transaction: Transaction; debt: number }>(`/transactions/${id}/action`, { method: 'POST', body: JSON.stringify({ action }) }),
 };

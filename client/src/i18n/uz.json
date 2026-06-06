@@ -152,6 +152,43 @@
     "buyerEmpty": "Sotuvchida hali mahsulot yo'q",
     "showOutOfStock": "Tugagan mahsulotlarni ham ko'rsatish"
   },
+  "chat": {
+    "empty": "Hali xabar yo'q. Yozing yoki amal qo'shing.",
+    "messagePh": "Xabar yozing...",
+    "notFound": "Suhbat topilmadi"
+  },
+  "tx": {
+    "newTitle": "Yangi amal",
+    "create": "Yaratish",
+    "createError": "Amalni yaratib bo'lmadi",
+    "total": "Jami",
+    "note": "Izoh",
+    "notePh": "Ixtiyoriy izoh",
+    "reason": "Sabab",
+    "reasonPh": "Qaytarish sababi",
+    "itemName": "Mahsulot nomi",
+    "pickProducts": "Katalogdan tanlang",
+    "noProducts": "Mahsulot topilmadi",
+    "addManual": "Qo'lda qo'shish",
+    "type": {
+      "delivery": "Yetkazish",
+      "order": "Buyurtma",
+      "return": "Qaytarish"
+    },
+    "status": {
+      "pending": "Kutilmoqda",
+      "accepted": "Qabul qilindi",
+      "delivered": "Yetkazildi",
+      "paid": "To'landi",
+      "rejected": "Rad etildi"
+    },
+    "action": {
+      "accept": "Qabul qilish",
+      "deliver": "Yetkazildi",
+      "pay": "To'landi",
+      "reject": "Rad etish"
+    }
+  },
   "contacts": {
     "add": "Qo'shish",
     "searchTitle": "Qidirib qo'shish",

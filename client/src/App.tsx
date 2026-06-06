@@ -12,6 +12,7 @@ import { Contacts } from './pages/Contacts';
 import { Chat } from './pages/Chat';
 import { Reports } from './pages/Reports';
 import { Team } from './pages/Team';
+import { Partners } from './pages/Partners';
 
 function Stub({ titleKey }: { titleKey: string }) {
   const { t } = useTranslation();
@@ -46,6 +47,7 @@ function ProtectedRoutes() {
         <Route path="/reports" element={<Reports />} />
         <Route path="/messages" element={<Stub titleKey="nav.messages" />} />
         <Route path="/team" element={<Team />} />
+        <Route path="/partners" element={<Partners />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

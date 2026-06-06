@@ -156,6 +156,17 @@
     "buyerEmpty": "Sotuvchida hali mahsulot yo'q",
     "showOutOfStock": "Tugagan mahsulotlarni ham ko'rsatish"
   },
+  "partners": {
+    "title": "Sheriklar",
+    "subtitle": "Hisobingizni birga boshqaradigan sheriklar",
+    "add": "Sherik qo'shish",
+    "owner": "Egasi",
+    "empty": "Hali sherik yo'q",
+    "emptyHint": "Hisobni birga yuritish uchun sherik qo'shing",
+    "removeTitle": "Sherikni o'chirish",
+    "removeConfirm": "Ushbu sherikni o'chirishga aminmisiz?",
+    "credHint": "Ushbu email va parol bilan sherik tizimga kiradi"
+  },
   "team": {
     "title": "Jamoa",
     "subtitle": "Hodim va hisobchilarni boshqarish",

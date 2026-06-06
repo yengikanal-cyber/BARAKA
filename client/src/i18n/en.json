@@ -156,6 +156,17 @@
     "buyerEmpty": "The seller has no products yet",
     "showOutOfStock": "Show out-of-stock items too"
   },
+  "partners": {
+    "title": "Partners",
+    "subtitle": "Partners who co-manage your account",
+    "add": "Add partner",
+    "owner": "Owner",
+    "empty": "No partners yet",
+    "emptyHint": "Add a partner to co-manage the account",
+    "removeTitle": "Remove partner",
+    "removeConfirm": "Remove this partner?",
+    "credHint": "The partner signs in with this email and password"
+  },
   "team": {
     "title": "Team",
     "subtitle": "Manage staff and accountants",

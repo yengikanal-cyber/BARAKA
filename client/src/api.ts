@@ -64,6 +64,15 @@ export type User = {
   created_at: string;
 } & AppearanceSettings;
 
+export type Partner = {
+  id: number;
+  name: string;
+  nickname: string;
+  email: string;
+  phone: string | null;
+  avatar_url: string | null;
+};
+
 export type TeamMember = {
   id: number;
   name: string;
@@ -270,4 +279,11 @@ export const api = {
     request<{ clients: AssignClient[] }>(`/team/${staffId}/clients`),
   assignClient: (staffId: number, connectionId: number, assigned: boolean) =>
     request<{ ok: true }>('/team/assign', { method: 'POST', body: JSON.stringify({ staffId, connectionId, assigned }) }),
+
+  // Partners (buyer-side)
+  listPartners: () => request<{ partners: Partner[]; owner: { id: number; name: string; nickname: string; avatar_url: string | null } | null; canManage: boolean }>('/partners'),
+  addPartner: (body: { name: string; email: string; password: string; phone?: string | null }) =>
+    request<{ partner: Partner }>('/partners', { method: 'POST', body: JSON.stringify(body) }),
+  removePartner: (id: number) =>
+    request<{ ok: true }>(`/partners/${id}`, { method: 'DELETE' }),
 };

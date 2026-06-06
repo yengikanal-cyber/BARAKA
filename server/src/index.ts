@@ -7,6 +7,8 @@ import fs from 'fs';
 
 import authRoutes from './routes/auth';
 import profileRoutes from './routes/profile';
+import productsRoutes from './routes/products';
+import uploadsRoutes from './routes/uploads';
 
 const app = express();
 const PORT = Number(process.env.PORT || 4000);
@@ -29,6 +31,8 @@ app.get('/api/health', (_req, res) => res.json({ ok: true, version: '0.1.0' }));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/products', productsRoutes);
+app.use('/api/uploads', uploadsRoutes);
 
 app.use((err: any, _req: any, res: any, _next: any) => {
   console.error(err);

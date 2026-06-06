@@ -17,7 +17,11 @@
     "success": "Готово",
     "required": "Обязательно",
     "saved": "Сохранено",
-    "soon": "Скоро"
+    "soon": "Скоро",
+    "empty": "Нет данных",
+    "confirm": "Подтвердить",
+    "close": "Закрыть",
+    "all": "Все"
   },
   "roles": {
     "manufacturer": "Продавец",
@@ -119,5 +123,38 @@
   },
   "appearance": {
     "instantApply": "Изменения применяются сразу и сохраняются в вашем аккаунте"
+  },
+  "photo": {
+    "upload": "Загрузить фото",
+    "change": "Заменить фото",
+    "remove": "Убрать фото"
+  },
+  "catalog": {
+    "title": "Каталог",
+    "addProduct": "Добавить товар",
+    "editProduct": "Изменить товар",
+    "deleteProduct": "Удалить товар",
+    "deleteConfirm": "Удалить этот товар?",
+    "name": "Название",
+    "namePh": "Например, Coca Cola 1L",
+    "price": "Цена",
+    "unit": "Единица",
+    "category": "Категория",
+    "categoryPh": "Например, Напитки",
+    "photo": "Фото",
+    "inStock": "В наличии",
+    "outOfStock": "Закончился",
+    "toggleStock": "Переключить наличие",
+    "empty": "Пока товаров нет",
+    "emptyHint": "Добавьте свой первый товар",
+    "filterAll": "Все",
+    "filterCategory": "Фильтр по категории",
+    "buyerEmpty": "У продавца пока нет товаров",
+    "showOutOfStock": "Показывать также закончившиеся"
+  },
+  "units": {
+    "dona": "шт", "kg": "кг", "litr": "л", "metr": "м",
+    "tonna": "т", "karobka": "коробка", "pachka": "пачка",
+    "qop": "мешок", "boglam": "связка", "sht": "шт", "juft": "пара"
   }
 }

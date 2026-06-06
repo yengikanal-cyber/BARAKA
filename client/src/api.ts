@@ -8,6 +8,24 @@ export type AppearanceSettings = {
   radius: 'square' | 'soft' | 'round';
 };
 
+export const UNITS = [
+  'dona', 'kg', 'litr', 'metr', 'tonna', 'karobka',
+  'pachka', 'qop', 'boglam', 'sht', 'juft',
+] as const;
+export type Unit = (typeof UNITS)[number];
+
+export type Product = {
+  id: number;
+  manufacturer_id: number;
+  name: string;
+  price: number;
+  unit: Unit;
+  category: string | null;
+  photo_url: string | null;
+  in_stock: boolean;
+  created_at: string;
+};
+
 export type User = {
   id: number;
   email: string;
@@ -82,4 +100,32 @@ export const api = {
   },
   changePassword: (current: string, next: string) =>
     request<{ ok: true }>('/profile/password', { method: 'POST', body: JSON.stringify({ current, next }) }),
+
+  // Products
+  listProducts: (params: { category?: string; stock?: 'in' | 'out' } = {}) => {
+    const q = new URLSearchParams();
+    if (params.category) q.set('category', params.category);
+    if (params.stock) q.set('stock', params.stock);
+    const qs = q.toString();
+    return request<{ products: Product[]; categories: string[] }>(`/products${qs ? '?' + qs : ''}`);
+  },
+  listProductsByManufacturer: (manufacturerId: number, all = false) =>
+    request<{ manufacturer: { id: number; name: string; nickname: string; avatar_url: string | null }; products: Product[]; categories: string[] }>(
+      `/products/by/${manufacturerId}${all ? '?all=1' : ''}`,
+    ),
+  createProduct: (body: { name: string; price: number; unit: Unit; category?: string | null; photo_url?: string | null; in_stock?: boolean }) =>
+    request<{ product: Product }>('/products', { method: 'POST', body: JSON.stringify(body) }),
+  updateProduct: (id: number, body: Partial<{ name: string; price: number; unit: Unit; category: string | null; photo_url: string | null; in_stock: boolean }>) =>
+    request<{ product: Product }>(`/products/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  toggleStock: (id: number) =>
+    request<{ product: Product }>(`/products/${id}/toggle-stock`, { method: 'POST' }),
+  deleteProduct: (id: number) =>
+    request<{ ok: true }>(`/products/${id}`, { method: 'DELETE' }),
+
+  // Generic image upload (products, stories, rewards)
+  uploadImage: (file: File, kind: 'product' | 'story' | 'reward' = 'product') => {
+    const form = new FormData();
+    form.append('image', file);
+    return upload<{ url: string }>(`/uploads/image?kind=${kind}`, form);
+  },
 };

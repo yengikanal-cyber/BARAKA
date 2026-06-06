@@ -40,6 +40,21 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE INDEX IF NOT EXISTS idx_users_nickname ON users(nickname);
 CREATE INDEX IF NOT EXISTS idx_users_parent ON users(parent_id);
+
+CREATE TABLE IF NOT EXISTS products (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  manufacturer_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  price REAL NOT NULL DEFAULT 0,
+  unit TEXT NOT NULL,
+  category TEXT,
+  photo_url TEXT,
+  in_stock INTEGER NOT NULL DEFAULT 1,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_products_manufacturer ON products(manufacturer_id);
+CREATE INDEX IF NOT EXISTS idx_products_category ON products(category);
 `);
 
 export type UserRow = {
@@ -69,4 +84,22 @@ export type UserRow = {
 export function publicUser(u: UserRow) {
   const { password_hash, ...rest } = u;
   return rest;
+}
+
+export type ProductRow = {
+  id: number;
+  manufacturer_id: number;
+  name: string;
+  price: number;
+  unit: string;
+  category: string | null;
+  photo_url: string | null;
+  in_stock: number; // 0/1
+  created_at: string;
+};
+
+export type ProductDTO = Omit<ProductRow, 'in_stock'> & { in_stock: boolean };
+
+export function productOut(p: ProductRow): ProductDTO {
+  return { ...p, in_stock: p.in_stock === 1 };
 }

@@ -17,7 +17,11 @@
     "success": "Success",
     "required": "Required",
     "saved": "Saved",
-    "soon": "Soon"
+    "soon": "Soon",
+    "empty": "No data",
+    "confirm": "Confirm",
+    "close": "Close",
+    "all": "All"
   },
   "roles": {
     "manufacturer": "Seller",
@@ -119,5 +123,38 @@
   },
   "appearance": {
     "instantApply": "Changes apply instantly and are saved to your account"
+  },
+  "photo": {
+    "upload": "Upload photo",
+    "change": "Change photo",
+    "remove": "Remove photo"
+  },
+  "catalog": {
+    "title": "Catalog",
+    "addProduct": "Add product",
+    "editProduct": "Edit product",
+    "deleteProduct": "Delete product",
+    "deleteConfirm": "Delete this product?",
+    "name": "Name",
+    "namePh": "e.g. Coca Cola 1L",
+    "price": "Price",
+    "unit": "Unit",
+    "category": "Category",
+    "categoryPh": "e.g. Beverages",
+    "photo": "Photo",
+    "inStock": "In stock",
+    "outOfStock": "Out of stock",
+    "toggleStock": "Toggle stock",
+    "empty": "No products yet",
+    "emptyHint": "Add your first product",
+    "filterAll": "All",
+    "filterCategory": "Filter by category",
+    "buyerEmpty": "The seller has no products yet",
+    "showOutOfStock": "Show out-of-stock items too"
+  },
+  "units": {
+    "dona": "pc", "kg": "kg", "litr": "L", "metr": "m",
+    "tonna": "t", "karobka": "box", "pachka": "pack",
+    "qop": "sack", "boglam": "bundle", "sht": "pc", "juft": "pair"
   }
 }

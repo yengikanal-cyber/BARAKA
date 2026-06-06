@@ -17,7 +17,11 @@
     "success": "Bajarildi",
     "required": "Majburiy",
     "saved": "Saqlandi",
-    "soon": "Tez orada"
+    "soon": "Tez orada",
+    "empty": "Ma'lumot yo'q",
+    "confirm": "Tasdiqlash",
+    "close": "Yopish",
+    "all": "Hammasi"
   },
   "roles": {
     "manufacturer": "Sotuvchi",
@@ -119,5 +123,38 @@
   },
   "appearance": {
     "instantApply": "O'zgarishlar darhol qo'llaniladi va akkauntingizda saqlanadi"
+  },
+  "photo": {
+    "upload": "Rasm yuklash",
+    "change": "Rasmni almashtirish",
+    "remove": "Rasmni o'chirish"
+  },
+  "catalog": {
+    "title": "Katalog",
+    "addProduct": "Mahsulot qo'shish",
+    "editProduct": "Mahsulotni tahrirlash",
+    "deleteProduct": "Mahsulotni o'chirish",
+    "deleteConfirm": "Ushbu mahsulotni o'chirishga aminmisiz?",
+    "name": "Nomi",
+    "namePh": "Masalan, Coca Cola 1L",
+    "price": "Narxi",
+    "unit": "O'lchov",
+    "category": "Kategoriya",
+    "categoryPh": "Masalan, Ichimliklar",
+    "photo": "Rasm",
+    "inStock": "Mavjud",
+    "outOfStock": "Tugagan",
+    "toggleStock": "Mavjudligini almashtirish",
+    "empty": "Hali mahsulot yo'q",
+    "emptyHint": "Birinchi mahsulotingizni qo'shing",
+    "filterAll": "Hammasi",
+    "filterCategory": "Kategoriya bo'yicha filtr",
+    "buyerEmpty": "Sotuvchida hali mahsulot yo'q",
+    "showOutOfStock": "Tugagan mahsulotlarni ham ko'rsatish"
+  },
+  "units": {
+    "dona": "dona", "kg": "kg", "litr": "litr", "metr": "metr",
+    "tonna": "tonna", "karobka": "karobka", "pachka": "pachka",
+    "qop": "qop", "boglam": "bog'lam", "sht": "sht", "juft": "juft"
   }
 }

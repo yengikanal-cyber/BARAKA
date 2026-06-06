@@ -78,7 +78,11 @@
   "home": {
     "hello": "Hello",
     "welcome": "Welcome to Baraka",
-    "phase1Notice": "Phase 1: registration, profile and appearance settings are ready. More sections come in later phases."
+    "receivable": "Receivable",
+    "myDebt": "My debt",
+    "turnover": "Turnover",
+    "paid": "Paid",
+    "viewAll": "View all"
   },
   "profile": {
     "title": "Profile",

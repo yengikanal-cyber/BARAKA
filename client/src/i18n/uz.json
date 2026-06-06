@@ -78,7 +78,11 @@
   "home": {
     "hello": "Salom",
     "welcome": "Baraka'ga xush kelibsiz",
-    "phase1Notice": "Phase 1: ro'yxatdan o'tish, profil va ko'rinish sozlamalari tayyor. Boshqa bo'limlar keyingi bosqichlarda qo'shiladi."
+    "receivable": "Olinadigan qarz",
+    "myDebt": "Mening qarzim",
+    "turnover": "Aylanma",
+    "paid": "To'langan",
+    "viewAll": "Hammasi"
   },
   "profile": {
     "title": "Profil",

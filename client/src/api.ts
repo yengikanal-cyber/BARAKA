@@ -218,6 +218,9 @@ export const api = {
   deleteConnection: (id: number) =>
     request<{ ok: true }>(`/connections/${id}`, { method: 'DELETE' }),
 
+  // Stats
+  statsSummary: () => request<{ debt: number; turnover: number; paid: number; contacts: number }>('/stats/summary'),
+
   // Chat + transactions
   getChat: (otherId: number) => request<ChatData>(`/chat/${otherId}`),
   sendMessage: (otherId: number, body: string) =>

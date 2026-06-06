@@ -241,5 +241,13 @@
     "dona": "dona", "kg": "kg", "litr": "litr", "metr": "metr",
     "tonna": "tonna", "karobka": "karobka", "pachka": "pachka",
     "qop": "qop", "boglam": "bog'lam", "sht": "sht", "juft": "juft"
+  },
+  "stories": {
+    "add": "Qo'shish",
+    "titleField": "Sarlavha",
+    "discount": "Chegirma (%)",
+    "description": "Tavsif",
+    "photo": "Rasm",
+    "types": { "news": "Yangilik", "discount": "Chegirma", "product": "Mahsulot" }
   }
 }

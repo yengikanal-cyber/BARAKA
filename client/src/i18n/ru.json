@@ -241,5 +241,13 @@
     "dona": "шт", "kg": "кг", "litr": "л", "metr": "м",
     "tonna": "т", "karobka": "коробка", "pachka": "пачка",
     "qop": "мешок", "boglam": "связка", "sht": "шт", "juft": "пара"
+  },
+  "stories": {
+    "add": "Добавить",
+    "titleField": "Заголовок",
+    "discount": "Скидка (%)",
+    "description": "Описание",
+    "photo": "Фото",
+    "types": { "news": "Новость", "discount": "Скидка", "product": "Товар" }
   }
 }

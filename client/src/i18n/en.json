@@ -241,5 +241,13 @@
     "dona": "pc", "kg": "kg", "litr": "L", "metr": "m",
     "tonna": "t", "karobka": "box", "pachka": "pack",
     "qop": "sack", "boglam": "bundle", "sht": "pc", "juft": "pair"
+  },
+  "stories": {
+    "add": "Add",
+    "titleField": "Title",
+    "discount": "Discount (%)",
+    "description": "Description",
+    "photo": "Photo",
+    "types": { "news": "News", "discount": "Discount", "product": "Product" }
   }
 }

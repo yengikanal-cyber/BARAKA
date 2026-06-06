@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { api, Contact } from '../api';
 import { formatMoney } from '../i18n';
 import { Avatar } from '../components/Avatar';
+import { StoriesStrip } from '../components/StoriesStrip';
 
 type Summary = { debt: number; turnover: number; paid: number; contacts: number };
 
@@ -45,6 +46,9 @@ export function Home() {
           <div className="text-sm muted mt-0.5">@{user.nickname} · {t(`roles.${user.role}`)}</div>
         </div>
       </div>
+
+      {/* Stories */}
+      <StoriesStrip />
 
       {/* Stat cards */}
       <div className="grid grid-cols-3 gap-3">

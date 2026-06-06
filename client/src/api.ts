@@ -64,6 +64,22 @@ export type User = {
   created_at: string;
 } & AppearanceSettings;
 
+export type Story = {
+  id: number;
+  manufacturer_id: number;
+  type: 'news' | 'discount' | 'product';
+  title: string;
+  description: string | null;
+  discount_percent: number | null;
+  photo_url: string | null;
+  created_at: string;
+};
+
+export type StoryGroup = {
+  manufacturer: { id: number; name: string; nickname: string; avatar_url: string | null } | null;
+  stories: Story[];
+};
+
 export type Partner = {
   id: number;
   name: string;
@@ -255,6 +271,12 @@ export const api = {
     request<{ connection_id: number }>('/connections', { method: 'POST', body: JSON.stringify({ userId }) }),
   deleteConnection: (id: number) =>
     request<{ ok: true }>(`/connections/${id}`, { method: 'DELETE' }),
+
+  // Stories
+  listStories: () => request<{ groups: StoryGroup[]; canCreate: boolean }>('/stories'),
+  createStory: (body: { type: 'news' | 'discount' | 'product'; title: string; description?: string | null; discount_percent?: number | null; photo_url?: string | null }) =>
+    request<{ story: Story }>('/stories', { method: 'POST', body: JSON.stringify(body) }),
+  deleteStory: (id: number) => request<{ ok: true }>(`/stories/${id}`, { method: 'DELETE' }),
 
   // Stats
   statsSummary: () => request<{ debt: number; turnover: number; paid: number; contacts: number }>('/stats/summary'),

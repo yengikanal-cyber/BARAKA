@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import { Avatar } from './Avatar';
+import { NotificationBell } from './NotificationBell';
 
 type NavItem = { to: string; label: string; icon: ReactNode };
 
@@ -43,7 +44,7 @@ function navFor(role: string, t: (k: string) => string): NavItem[] {
         { to: '/', label: t('nav.home'), icon: <HomeIcon /> },
         { to: '/sellers', label: t('nav.sellers'), icon: <UsersIcon /> },
         { to: '/reports', label: t('nav.reports'), icon: <ReportIcon /> },
-        { to: '/messages', label: t('nav.messages'), icon: <ChatIcon /> },
+        { to: '/notifications', label: t('nav.notifications'), icon: <ChatIcon /> },
         { to: '/profile', label: t('nav.profile'), icon: <UserIcon /> },
       ];
     default:
@@ -68,6 +69,7 @@ export function Layout({ children }: { children: ReactNode }) {
           </div>
           <div className="flex-1" />
           <div className="text-sm muted hidden lg:block">@{user.nickname} · {t(`roles.${user.role}`)}</div>
+          <NotificationBell />
           <Avatar src={user.avatar_url || undefined} name={user.name} size={36} />
         </div>
       </header>
@@ -79,6 +81,7 @@ export function Layout({ children }: { children: ReactNode }) {
             {t('app.name')}
           </div>
           <div className="flex-1" />
+          <NotificationBell size={34} />
           <Avatar src={user.avatar_url || undefined} name={user.name} size={32} />
         </div>
       </header>

@@ -73,6 +73,7 @@
     "catalog": "Catalog",
     "reports": "Reports",
     "messages": "Messages",
+    "notifications": "Alerts",
     "profile": "Profile"
   },
   "home": {
@@ -275,5 +276,26 @@
     "emptyBuyer": "Sellers have no rewards yet",
     "removeTitle": "Delete reward",
     "removeConfirm": "Delete this reward?"
+  },
+  "notif": {
+    "title": "Notifications",
+    "empty": "No notifications",
+    "emptyHint": "New events will show up here",
+    "generic": "New notification",
+    "connection_new": "{{name}} connected with you",
+    "message_new": "New message from {{name}}",
+    "reward_new": "New reward: {{title}}",
+    "tx_new_delivery": "{{name}} created a delivery — {{total}}",
+    "tx_new_order": "{{name}} created an order — {{total}}",
+    "tx_new_return": "{{name}} created a return — {{total}}",
+    "tx_accept_order": "{{name}} accepted your order",
+    "tx_accept_return": "{{name}} accepted the return",
+    "tx_deliver_delivery": "{{name}} confirmed the delivery",
+    "tx_deliver_order": "{{name}} delivered the order",
+    "tx_pay_delivery": "{{name}} confirmed payment",
+    "tx_pay_order": "{{name}} confirmed payment",
+    "tx_reject_delivery": "{{name}} rejected the delivery",
+    "tx_reject_order": "{{name}} rejected the order",
+    "tx_reject_return": "{{name}} rejected the return"
   }
 }

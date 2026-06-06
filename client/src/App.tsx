@@ -14,6 +14,7 @@ import { Reports } from './pages/Reports';
 import { Team } from './pages/Team';
 import { Partners } from './pages/Partners';
 import { Rewards } from './pages/Rewards';
+import { Notifications } from './pages/Notifications';
 
 function Stub({ titleKey }: { titleKey: string }) {
   const { t } = useTranslation();
@@ -46,7 +47,8 @@ function ProtectedRoutes() {
         <Route path="/chat/:otherId" element={<Chat />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/reports" element={<Reports />} />
-        <Route path="/messages" element={<Stub titleKey="nav.messages" />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/messages" element={<Navigate to="/notifications" replace />} />
         <Route path="/team" element={<Team />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/rewards" element={<Rewards />} />

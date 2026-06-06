@@ -105,6 +105,16 @@ export type Reward = {
   qualifying?: boolean;
 };
 
+export type Notification = {
+  id: number;
+  type: string;
+  title: string;
+  body: string | null;
+  data: Record<string, any> | null;
+  is_read: boolean;
+  created_at: string;
+};
+
 export type Partner = {
   id: number;
   name: string;
@@ -326,6 +336,12 @@ export const api = {
     top_n: number;
   }>) => request<{ reward: Reward }>(`/rewards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteReward: (id: number) => request<{ ok: true }>(`/rewards/${id}`, { method: 'DELETE' }),
+
+  // Notifications
+  listNotifications: () => request<{ notifications: Notification[]; unread: number }>('/notifications'),
+  unreadCount: () => request<{ unread: number }>('/notifications/unread-count'),
+  markAllRead: () => request<{ ok: true }>('/notifications/read-all', { method: 'POST' }),
+  markRead: (id: number) => request<{ ok: true }>(`/notifications/${id}/read`, { method: 'POST' }),
 
   // Stats
   statsSummary: () => request<{ debt: number; turnover: number; paid: number; contacts: number }>('/stats/summary'),

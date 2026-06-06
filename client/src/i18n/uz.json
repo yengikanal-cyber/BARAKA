@@ -73,6 +73,7 @@
     "catalog": "Katalog",
     "reports": "Hisobot",
     "messages": "Xabarlar",
+    "notifications": "Bildirishnomalar",
     "profile": "Profil"
   },
   "home": {
@@ -275,5 +276,26 @@
     "emptyBuyer": "Sotuvchilarda hozircha sovg'a yo'q",
     "removeTitle": "Sovg'ani o'chirish",
     "removeConfirm": "Ushbu sovg'ani o'chirilsinmi?"
+  },
+  "notif": {
+    "title": "Bildirishnomalar",
+    "empty": "Bildirishnomalar yo'q",
+    "emptyHint": "Yangi voqealar shu yerda ko'rinadi",
+    "generic": "Yangi bildirishnoma",
+    "connection_new": "{{name}} siz bilan bog'landi",
+    "message_new": "{{name}}dan yangi xabar",
+    "reward_new": "Yangi sovg'a: {{title}}",
+    "tx_new_delivery": "{{name}} yangi yetkazib berish yubordi — {{total}}",
+    "tx_new_order": "{{name}} yangi buyurtma yubordi — {{total}}",
+    "tx_new_return": "{{name}} qaytarish yubordi — {{total}}",
+    "tx_accept_order": "{{name}} buyurtmangizni qabul qildi",
+    "tx_accept_return": "{{name}} qaytarishni qabul qildi",
+    "tx_deliver_delivery": "{{name}} yetkazib berishni tasdiqladi",
+    "tx_deliver_order": "{{name}} buyurtmani yetkazdi",
+    "tx_pay_delivery": "{{name}} to'lovni tasdiqladi",
+    "tx_pay_order": "{{name}} to'lovni tasdiqladi",
+    "tx_reject_delivery": "{{name}} yetkazib berishni rad etdi",
+    "tx_reject_order": "{{name}} buyurtmani rad etdi",
+    "tx_reject_return": "{{name}} qaytarishni rad etdi"
   }
 }

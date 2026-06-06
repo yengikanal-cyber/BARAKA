@@ -73,6 +73,7 @@
     "catalog": "Каталог",
     "reports": "Отчёт",
     "messages": "Сообщения",
+    "notifications": "Уведомления",
     "profile": "Профиль"
   },
   "home": {
@@ -275,5 +276,26 @@
     "emptyBuyer": "У продавцов пока нет наград",
     "removeTitle": "Удалить награду",
     "removeConfirm": "Удалить эту награду?"
+  },
+  "notif": {
+    "title": "Уведомления",
+    "empty": "Нет уведомлений",
+    "emptyHint": "Новые события появятся здесь",
+    "generic": "Новое уведомление",
+    "connection_new": "{{name}} связался с вами",
+    "message_new": "Новое сообщение от {{name}}",
+    "reward_new": "Новая награда: {{title}}",
+    "tx_new_delivery": "{{name}} создал поставку — {{total}}",
+    "tx_new_order": "{{name}} создал заказ — {{total}}",
+    "tx_new_return": "{{name}} создал возврат — {{total}}",
+    "tx_accept_order": "{{name}} принял ваш заказ",
+    "tx_accept_return": "{{name}} принял возврат",
+    "tx_deliver_delivery": "{{name}} подтвердил поставку",
+    "tx_deliver_order": "{{name}} доставил заказ",
+    "tx_pay_delivery": "{{name}} подтвердил оплату",
+    "tx_pay_order": "{{name}} подтвердил оплату",
+    "tx_reject_delivery": "{{name}} отклонил поставку",
+    "tx_reject_order": "{{name}} отклонил заказ",
+    "tx_reject_return": "{{name}} отклонил возврат"
   }
 }

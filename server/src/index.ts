@@ -13,6 +13,7 @@ import connectionsRoutes from './routes/connections';
 import chatRoutes from './routes/chat';
 import transactionsRoutes from './routes/transactions';
 import statsRoutes from './routes/stats';
+import teamRoutes from './routes/team';
 
 const app = express();
 const PORT = Number(process.env.PORT || 4000);
@@ -41,6 +42,7 @@ app.use('/api/connections', connectionsRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/transactions', transactionsRoutes);
 app.use('/api/stats', statsRoutes);
+app.use('/api/team', teamRoutes);
 
 app.use((err: any, _req: any, res: any, _next: any) => {
   console.error(err);

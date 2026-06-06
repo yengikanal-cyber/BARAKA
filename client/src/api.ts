@@ -64,6 +64,26 @@ export type User = {
   created_at: string;
 } & AppearanceSettings;
 
+export type TeamMember = {
+  id: number;
+  name: string;
+  nickname: string;
+  email: string;
+  phone: string | null;
+  role: 'staff' | 'accountant';
+  avatar_url: string | null;
+  assignedCount: number;
+};
+
+export type AssignClient = {
+  connection_id: number;
+  buyer_id: number;
+  name: string;
+  nickname: string;
+  avatar_url: string | null;
+  assigned: boolean;
+};
+
 export type StatsReport = {
   cards: { turnover: number; paid: number; debt: number; returns: number };
   counts: { delivery: number; order: number; return: number };
@@ -239,4 +259,15 @@ export const api = {
     request<{ transaction: Transaction; debt: number }>('/transactions', { method: 'POST', body: JSON.stringify(body) }),
   txAction: (id: number, action: 'accept' | 'deliver' | 'pay' | 'reject') =>
     request<{ transaction: Transaction; debt: number }>(`/transactions/${id}/action`, { method: 'POST', body: JSON.stringify({ action }) }),
+
+  // Team
+  listTeam: () => request<{ members: TeamMember[] }>('/team'),
+  addTeamMember: (body: { name: string; email: string; password: string; role: 'staff' | 'accountant'; phone?: string | null }) =>
+    request<{ member: TeamMember }>('/team', { method: 'POST', body: JSON.stringify(body) }),
+  removeTeamMember: (id: number) =>
+    request<{ ok: true }>(`/team/${id}`, { method: 'DELETE' }),
+  teamClients: (staffId: number) =>
+    request<{ clients: AssignClient[] }>(`/team/${staffId}/clients`),
+  assignClient: (staffId: number, connectionId: number, assigned: boolean) =>
+    request<{ ok: true }>('/team/assign', { method: 'POST', body: JSON.stringify({ staffId, connectionId, assigned }) }),
 };

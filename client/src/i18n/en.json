@@ -156,6 +156,18 @@
     "buyerEmpty": "The seller has no products yet",
     "showOutOfStock": "Show out-of-stock items too"
   },
+  "team": {
+    "title": "Team",
+    "subtitle": "Manage staff and accountants",
+    "add": "Add member",
+    "empty": "No team members yet",
+    "emptyHint": "Add a staff member or accountant",
+    "assign": "Assign clients",
+    "assignedCount": "{{count}} clients",
+    "removeTitle": "Remove member",
+    "removeConfirm": "Remove this member?",
+    "credHint": "The member signs in with this email and password"
+  },
   "reports": {
     "returns": "Returns",
     "monthly": "Last 6 months turnover",

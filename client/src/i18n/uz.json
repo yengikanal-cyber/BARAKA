@@ -156,6 +156,18 @@
     "buyerEmpty": "Sotuvchida hali mahsulot yo'q",
     "showOutOfStock": "Tugagan mahsulotlarni ham ko'rsatish"
   },
+  "team": {
+    "title": "Jamoa",
+    "subtitle": "Hodim va hisobchilarni boshqarish",
+    "add": "A'zo qo'shish",
+    "empty": "Hali jamoa a'zosi yo'q",
+    "emptyHint": "Hodim yoki hisobchi qo'shing",
+    "assign": "Mijozlarni biriktirish",
+    "assignedCount": "{{count}} ta mijoz",
+    "removeTitle": "A'zoni o'chirish",
+    "removeConfirm": "Ushbu a'zoni o'chirishga aminmisiz?",
+    "credHint": "Ushbu email va parol bilan a'zo tizimga kiradi"
+  },
   "reports": {
     "returns": "Qaytarishlar",
     "monthly": "So'nggi 6 oy aylanmasi",

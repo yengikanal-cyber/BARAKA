@@ -1,0 +1,40 @@
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import path from 'path';
+import fs from 'fs';
+
+import authRoutes from './routes/auth';
+import profileRoutes from './routes/profile';
+
+const app = express();
+const PORT = Number(process.env.PORT || 4000);
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
+const UPLOAD_DIR = path.resolve(process.env.UPLOAD_DIR || './uploads');
+fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+
+app.use(
+  cors({
+    origin: CLIENT_ORIGIN,
+    credentials: true,
+  }),
+);
+app.use(express.json({ limit: '4mb' }));
+app.use(cookieParser());
+
+app.use('/uploads', express.static(UPLOAD_DIR, { maxAge: '7d' }));
+
+app.get('/api/health', (_req, res) => res.json({ ok: true, version: '0.1.0' }));
+
+app.use('/api/auth', authRoutes);
+app.use('/api/profile', profileRoutes);
+
+app.use((err: any, _req: any, res: any, _next: any) => {
+  console.error(err);
+  res.status(500).json({ error: 'server_error' });
+});
+
+app.listen(PORT, () => {
+  console.log(`[baraka] api on http://localhost:${PORT}`);
+});

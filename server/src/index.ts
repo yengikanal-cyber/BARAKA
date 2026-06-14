@@ -20,14 +20,31 @@ import rewardsRoutes from './routes/rewards';
 import notificationsRoutes from './routes/notifications';
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = Number(process.env.PORT || 4000);
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 const UPLOAD_DIR = path.resolve(process.env.UPLOAD_DIR || './uploads');
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
+// Allow: localhost (dev), the configured CLIENT_ORIGIN, and any *.vercel.app
+// deployment URL. This keeps credentialed cookies working even if the exact
+// Vercel subdomain changes, without needing to re-set an env var each time.
+const allowedExact = new Set(
+  [CLIENT_ORIGIN, 'http://localhost:5173', 'http://localhost:4173']
+    .filter(Boolean)
+    .map((o) => o.replace(/\/$/, '')),
+);
 app.use(
   cors({
-    origin: CLIENT_ORIGIN,
+    origin(origin, cb) {
+      // Non-browser requests (curl, server-to-server) have no Origin header.
+      if (!origin) return cb(null, true);
+      const clean = origin.replace(/\/$/, '');
+      if (allowedExact.has(clean) || /\.vercel\.app$/.test(new URL(clean).hostname)) {
+        return cb(null, true);
+      }
+      return cb(new Error('Not allowed by CORS'));
+    },
     credentials: true,
   }),
 );

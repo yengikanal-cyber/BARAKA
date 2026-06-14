@@ -17,18 +17,31 @@ export function signToken(userId: number) {
   return jwt.sign({ uid: userId }, JWT_SECRET, { expiresIn: '30d' });
 }
 
+// In production the frontend (vercel.app) and backend (onrender.com) are
+// different sites, so the session cookie must be SameSite=None + Secure or
+// the browser will silently drop it. In local dev we use Lax over http.
+// Render automatically sets RENDER=true on every service.
+const CROSS_SITE =
+  process.env.NODE_ENV === 'production' ||
+  !!process.env.RENDER ||
+  process.env.COOKIE_CROSS_SITE === 'true';
+
+const cookieOptions = {
+  httpOnly: true as const,
+  sameSite: (CROSS_SITE ? 'none' : 'lax') as 'none' | 'lax',
+  secure: CROSS_SITE,
+  path: '/',
+};
+
 export function setAuthCookie(res: Response, token: string) {
   res.cookie(COOKIE_NAME, token, {
-    httpOnly: true,
-    sameSite: 'lax',
-    secure: false,
+    ...cookieOptions,
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    path: '/',
   });
 }
 
 export function clearAuthCookie(res: Response) {
-  res.clearCookie(COOKIE_NAME, { path: '/' });
+  res.clearCookie(COOKIE_NAME, cookieOptions);
 }
 
 export interface AuthedRequest extends Request {

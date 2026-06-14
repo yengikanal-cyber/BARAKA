@@ -8,7 +8,7 @@ name: Keep backend awake
 
 on:
   schedule:
-    - cron: '*/10 * * * *' # every 10 minutes
+    - cron: '*/5 * * * *' # every 5 minutes (extra margin: GitHub cron can be delayed)
   workflow_dispatch: {} # also allow running it manually from the Actions tab
 
 # If a previous ping is still running, don't pile up extra ones.

@@ -1,0 +1,39 @@
+name: Keep backend awake
+
+# Render's free tier puts the backend to sleep after ~15 minutes of no
+# traffic, which makes the next visit slow (~30-60s to wake up). This
+# scheduled job pings the backend every 10 minutes so it never sleeps and
+# the site is always fast. The repo is public, so GitHub Actions minutes
+# are unlimited and free.
+
+on:
+  schedule:
+    - cron: '*/10 * * * *' # every 10 minutes
+  workflow_dispatch: {} # also allow running it manually from the Actions tab
+
+# If a previous ping is still running, don't pile up extra ones.
+concurrency:
+  group: keep-alive
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render backend health endpoint
+        run: |
+          URL="https://baraka-api-0knz.onrender.com/api/health"
+          echo "Pinging $URL"
+          for i in 1 2 3 4 5; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 90 "$URL" || echo "000")
+            echo "Attempt $i -> HTTP $code"
+            if [ "$code" = "200" ]; then
+              echo "Backend is awake."
+              exit 0
+            fi
+            sleep 20
+          done
+          # Don't fail the workflow on a miss (avoids noisy failure emails);
+          # the next scheduled run will try again in 10 minutes.
+          echo "Backend did not return 200 this run; will retry on next schedule."
+          exit 0

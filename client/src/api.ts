@@ -211,8 +211,10 @@ export type NewTxItem = {
   reason?: string | null;
 };
 
+const API_BASE = (import.meta as any).env?.VITE_API_URL ?? '';
+
 async function request<T>(path: string, opts: RequestInit = {}): Promise<T> {
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${API_BASE}/api${path}`, {
     credentials: 'include',
     headers: { 'Content-Type': 'application/json', ...(opts.headers || {}) },
     ...opts,
@@ -230,7 +232,7 @@ async function request<T>(path: string, opts: RequestInit = {}): Promise<T> {
 }
 
 async function upload<T>(path: string, form: FormData): Promise<T> {
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${API_BASE}/api${path}`, {
     method: 'POST',
     credentials: 'include',
     body: form,

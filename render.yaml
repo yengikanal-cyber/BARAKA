@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: baraka-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 22.15.0
+      - key: PORT
+        value: 4000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLIENT_ORIGIN
+        sync: false          # set this to your Vercel URL after deploying frontend
+      - key: DB_PATH
+        value: /data/baraka.db
+      - key: UPLOAD_DIR
+        value: /data/uploads
+    disk:
+      name: baraka-data
+      mountPath: /data
+      sizeGB: 1

@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { api } from '../api';
+import { api, mediaUrl } from '../api';
 
 type Props = {
   url: string | null;
-  kind: 'product' | 'story' | 'reward';
+  kind: 'product' | 'story' | 'reward' | 'chat' | 'receipt';
   onChange: (url: string | null) => void;
   size?: number;
   rounded?: 'lg' | 'full';
@@ -44,7 +44,7 @@ export function PhotoPicker({ url, kind, onChange, size = 96, rounded = 'lg' }: 
           style={{ width: size, height: size }}
         >
           {url ? (
-            <img src={url} alt="" className="w-full h-full object-cover" />
+            <img src={mediaUrl(url)} alt="" className="w-full h-full object-cover" />
           ) : (
             <div
               className="w-full h-full flex items-center justify-center"

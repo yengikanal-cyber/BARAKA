@@ -190,7 +190,40 @@
   "chat": {
     "empty": "No messages yet. Write or add an operation.",
     "messagePh": "Type a message...",
-    "notFound": "Chat not found"
+    "notFound": "Chat not found",
+    "attachImage": "Send photo"
+  },
+  "pay": {
+    "title": "Payment",
+    "makeTitle": "Make a payment",
+    "settingsTitle": "Payment details",
+    "settingsHint": "Add your bank and card details so customers can pay you.",
+    "currentDebt": "Current debt",
+    "amount": "Payment amount",
+    "receipt": "Receipt photo",
+    "sendReceipt": "Send receipt",
+    "cashDone": "Payment made",
+    "confirm": "Confirm",
+    "reject": "Reject",
+    "bankName": "Bank name",
+    "bankNamePh": "e.g. Kapitalbank",
+    "bankAccount": "Account number",
+    "cardNumber": "Card number",
+    "cardHolder": "Card holder",
+    "cardHolderPh": "First Last",
+    "cashEnabled": "Allow cash payment",
+    "error": "Could not complete the payment",
+    "method": {
+      "label": "Payment method",
+      "bank": "Bank",
+      "card": "Card",
+      "cash": "Cash"
+    },
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "rejected": "Rejected"
+    }
   },
   "tx": {
     "newTitle": "New operation",
@@ -296,6 +329,9 @@
     "tx_pay_order": "{{name}} confirmed payment",
     "tx_reject_delivery": "{{name}} rejected the delivery",
     "tx_reject_order": "{{name}} rejected the order",
-    "tx_reject_return": "{{name}} rejected the return"
+    "tx_reject_return": "{{name}} rejected the return",
+    "pay_new": "{{name}} sent a payment of {{total}}",
+    "pay_confirm": "{{name}} confirmed your payment — debt: {{debt}}",
+    "pay_reject": "{{name}} rejected your payment"
   }
 }

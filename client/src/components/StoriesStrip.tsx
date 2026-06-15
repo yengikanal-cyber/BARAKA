@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { api, Story, StoryGroup } from '../api';
+import { api, mediaUrl, Story, StoryGroup } from '../api';
 import { Avatar } from './Avatar';
 import { Sheet } from './Sheet';
 import { PhotoPicker } from './PhotoPicker';
@@ -95,7 +95,7 @@ function StoryViewer({ group, startIndex, canDelete, onClose, onDeleted }: {
 
       <div className="relative">
         {story.photo_url && (
-          <img src={story.photo_url} alt="" className="w-full rounded-glass object-cover max-h-80 mb-3" />
+          <img src={mediaUrl(story.photo_url)} alt="" className="w-full rounded-glass object-cover max-h-80 mb-3" />
         )}
         <div className="flex items-center gap-2 mb-1">
           {story.type === 'discount' && story.discount_percent != null && (

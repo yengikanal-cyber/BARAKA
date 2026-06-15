@@ -159,7 +159,43 @@ CREATE TABLE IF NOT EXISTS rewards (
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE INDEX IF NOT EXISTS idx_rewards_mfg ON rewards(manufacturer_id);
+
+-- Payments: money a buyer pays a manufacturer toward their debt.
+-- method: 'bank' | 'card' | 'cash'
+-- status: pending -> confirmed | rejected  (only confirmed reduces debt)
+CREATE TABLE IF NOT EXISTS payments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  manufacturer_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  buyer_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  amount REAL NOT NULL,
+  method TEXT NOT NULL CHECK(method IN ('bank','card','cash')),
+  status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending','confirmed','rejected')),
+  receipt_url TEXT,
+  note TEXT,
+  created_by INTEGER NOT NULL REFERENCES users(id),
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  confirmed_at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_pay_pair ON payments(manufacturer_id, buyer_id);
+CREATE INDEX IF NOT EXISTS idx_pay_mfg ON payments(manufacturer_id);
+CREATE INDEX IF NOT EXISTS idx_pay_buyer ON payments(buyer_id);
 `);
+
+// ---------- Lightweight migrations (add columns to existing DBs) ----------
+function ensureColumn(table: string, column: string, ddl: string) {
+  const cols = db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[];
+  if (!cols.some((c) => c.name === column)) {
+    db.exec(`ALTER TABLE ${table} ADD COLUMN ${ddl}`);
+  }
+}
+// Seller payment details (bank transfer / card / cash toggle).
+ensureColumn('users', 'bank_name', 'bank_name TEXT');
+ensureColumn('users', 'bank_account', 'bank_account TEXT');
+ensureColumn('users', 'card_number', 'card_number TEXT');
+ensureColumn('users', 'card_holder', 'card_holder TEXT');
+ensureColumn('users', 'cash_enabled', 'cash_enabled INTEGER NOT NULL DEFAULT 1');
+// Chat messages can carry an image.
+ensureColumn('messages', 'image_url', 'image_url TEXT');
 
 export type UserRow = {
   id: number;
@@ -182,6 +218,11 @@ export type UserRow = {
   density: string;
   font: string;
   radius: string;
+  bank_name: string | null;
+  bank_account: string | null;
+  card_number: string | null;
+  card_holder: string | null;
+  cash_enabled: number; // 0/1
   created_at: string;
 };
 
@@ -189,6 +230,20 @@ export function publicUser(u: UserRow) {
   const { password_hash, ...rest } = u;
   return rest;
 }
+
+export type PaymentRow = {
+  id: number;
+  manufacturer_id: number;
+  buyer_id: number;
+  amount: number;
+  method: 'bank' | 'card' | 'cash';
+  status: 'pending' | 'confirmed' | 'rejected';
+  receipt_url: string | null;
+  note: string | null;
+  created_by: number;
+  created_at: string;
+  confirmed_at: string | null;
+};
 
 export type ProductRow = {
   id: number;
@@ -228,15 +283,18 @@ export function userBrief(id: number): PublicUser | null {
 
 /**
  * Debt a buyer owes a manufacturer:
- *   SUM(delivered & unpaid totals, type != return)  -  SUM(accepted return totals)
- * clamped at 0.
+ *   SUM(delivered totals, type != return)
+ *   - SUM(accepted return totals)
+ *   - SUM(confirmed payments)
+ * clamped at 0. Deliveries stay 'delivered'; debt is settled through the
+ * payments ledger (supports partial payments).
  */
 export function computeDebt(manufacturerId: number, buyerId: number): number {
   const owed = (db
     .prepare(
       `SELECT COALESCE(SUM(total),0) AS s FROM transactions
        WHERE manufacturer_id = ? AND buyer_id = ?
-       AND type != 'return' AND status = 'delivered'`,
+       AND type != 'return' AND status IN ('delivered','paid')`,
     )
     .get(manufacturerId, buyerId) as { s: number }).s;
   const returned = (db
@@ -246,7 +304,13 @@ export function computeDebt(manufacturerId: number, buyerId: number): number {
        AND type = 'return' AND status = 'accepted'`,
     )
     .get(manufacturerId, buyerId) as { s: number }).s;
-  return Math.max(0, owed - returned);
+  const paid = (db
+    .prepare(
+      `SELECT COALESCE(SUM(amount),0) AS s FROM payments
+       WHERE manufacturer_id = ? AND buyer_id = ? AND status = 'confirmed'`,
+    )
+    .get(manufacturerId, buyerId) as { s: number }).s;
+  return Math.max(0, owed - returned - paid);
 }
 
 export function notify(

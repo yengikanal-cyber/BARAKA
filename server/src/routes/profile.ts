@@ -78,6 +78,33 @@ router.patch('/appearance', authMiddleware, (req: AuthedRequest, res: Response) 
   res.json({ user: publicUser(fresh) });
 });
 
+const paymentInfoSchema = z.object({
+  bank_name: z.string().trim().max(120).nullable().optional(),
+  bank_account: z.string().trim().max(60).nullable().optional(),
+  card_number: z.string().trim().max(40).nullable().optional(),
+  card_holder: z.string().trim().max(120).nullable().optional(),
+  cash_enabled: z.boolean().optional(),
+});
+
+// Seller payment details (bank / card / cash). Manufacturers only.
+router.patch('/payment', authMiddleware, (req: AuthedRequest, res: Response) => {
+  if (req.user!.role !== 'manufacturer') return res.status(403).json({ error: 'forbidden' });
+  const parsed = paymentInfoSchema.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ error: 'invalid_input' });
+  const sets: string[] = [];
+  const vals: unknown[] = [];
+  for (const [k, v] of Object.entries(parsed.data)) {
+    if (v === undefined) continue;
+    sets.push(`${k} = ?`);
+    vals.push(k === 'cash_enabled' ? (v ? 1 : 0) : v);
+  }
+  if (sets.length === 0) return res.json({ user: publicUser(req.user!) });
+  vals.push(req.user!.id);
+  db.prepare(`UPDATE users SET ${sets.join(', ')} WHERE id = ?`).run(...(vals as any[]));
+  const fresh = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user!.id) as UserRow;
+  res.json({ user: publicUser(fresh) });
+});
+
 function extFor(mime: string) {
   if (mime === 'image/png') return 'png';
   if (mime === 'image/webp') return 'webp';

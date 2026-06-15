@@ -55,6 +55,15 @@ export function Profile() {
   const [locBusy, setLocBusy] = useState(false);
   const [locMsg, setLocMsg] = useState<string | null>(null);
 
+  // payment info (manufacturer only)
+  const [bankName, setBankName] = useState(user?.bank_name ?? '');
+  const [bankAccount, setBankAccount] = useState(user?.bank_account ?? '');
+  const [cardNumber, setCardNumber] = useState(user?.card_number ?? '');
+  const [cardHolder, setCardHolder] = useState(user?.card_holder ?? '');
+  const [cashEnabled, setCashEnabled] = useState((user?.cash_enabled ?? 1) === 1);
+  const [payBusy, setPayBusy] = useState(false);
+  const [payMsg, setPayMsg] = useState<string | null>(null);
+
   useEffect(() => {
     if (!user) return;
     setName(user.name);
@@ -62,6 +71,11 @@ export function Profile() {
     setAddress(user.address ?? '');
     setLanguage(user.language);
     setAppearance(pickAppearance(user));
+    setBankName(user.bank_name ?? '');
+    setBankAccount(user.bank_account ?? '');
+    setCardNumber(user.card_number ?? '');
+    setCardHolder(user.card_holder ?? '');
+    setCashEnabled((user.cash_enabled ?? 1) === 1);
   }, [user]);
 
   if (!user) return null;
@@ -138,6 +152,28 @@ export function Profile() {
       () => { setLocBusy(false); setLocMsg('error'); setTimeout(() => setLocMsg(null), 2500); },
       { enableHighAccuracy: true, timeout: 10000 },
     );
+  }
+
+  async function savePaymentInfo(e: FormEvent) {
+    e.preventDefault();
+    setPayBusy(true);
+    setPayMsg(null);
+    try {
+      const { user } = await api.updatePaymentInfo({
+        bank_name: bankName || null,
+        bank_account: bankAccount || null,
+        card_number: cardNumber || null,
+        card_holder: cardHolder || null,
+        cash_enabled: cashEnabled,
+      });
+      setUser(user);
+      setPayMsg('saved');
+    } catch {
+      setPayMsg('error');
+    } finally {
+      setPayBusy(false);
+      setTimeout(() => setPayMsg(null), 2500);
+    }
   }
 
   async function changePassword(e: FormEvent) {
@@ -419,6 +455,52 @@ export function Profile() {
             </div>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="w-5 h-5 muted"><path d="M9 6l6 6-6 6" /></svg>
           </button>
+        </section>
+      )}
+
+      {/* Payment info (manufacturer only) */}
+      {user.role === 'manufacturer' && (
+        <section className="card">
+          <h2 className="font-semibold mb-1">{t('pay.settingsTitle')}</h2>
+          <p className="muted text-xs mb-4">{t('pay.settingsHint')}</p>
+          <form onSubmit={savePaymentInfo} className="space-y-3">
+            <div>
+              <label className="label">{t('pay.bankName')}</label>
+              <input className="input" value={bankName} onChange={e => setBankName(e.target.value)} placeholder={t('pay.bankNamePh')} />
+            </div>
+            <div>
+              <label className="label">{t('pay.bankAccount')}</label>
+              <input className="input" value={bankAccount} onChange={e => setBankAccount(e.target.value)} placeholder="0000 0000 0000 0000" />
+            </div>
+            <div>
+              <label className="label">{t('pay.cardNumber')}</label>
+              <input className="input" value={cardNumber} onChange={e => setCardNumber(e.target.value)} placeholder="8600 0000 0000 0000" />
+            </div>
+            <div>
+              <label className="label">{t('pay.cardHolder')}</label>
+              <input className="input" value={cardHolder} onChange={e => setCardHolder(e.target.value)} placeholder={t('pay.cardHolderPh')} />
+            </div>
+            <button
+              type="button"
+              onClick={() => setCashEnabled(v => !v)}
+              className="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-btn border border-black/10 dark:border-white/10 spring"
+            >
+              <span className="text-sm">{t('pay.cashEnabled')}</span>
+              <span
+                className="relative w-11 h-6 rounded-full transition-colors shrink-0"
+                style={{ background: cashEnabled ? 'rgb(var(--accent-500))' : 'rgba(120,120,120,0.4)' }}
+              >
+                <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${cashEnabled ? 'left-[22px]' : 'left-0.5'}`} />
+              </span>
+            </button>
+            <div className="flex items-center gap-3 pt-1">
+              <button className="btn-primary" disabled={payBusy}>
+                {payBusy ? t('common.saving') : t('common.save')}
+              </button>
+              {payMsg === 'saved' && <span className="pill-green px-2 py-1 rounded-btn text-xs">{t('common.saved')}</span>}
+              {payMsg === 'error' && <span className="pill-red px-2 py-1 rounded-btn text-xs">{t('common.error')}</span>}
+            </div>
+          </form>
         </section>
       )}
 

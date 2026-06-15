@@ -190,7 +190,40 @@
   "chat": {
     "empty": "Hali xabar yo'q. Yozing yoki amal qo'shing.",
     "messagePh": "Xabar yozing...",
-    "notFound": "Suhbat topilmadi"
+    "notFound": "Suhbat topilmadi",
+    "attachImage": "Rasm yuborish"
+  },
+  "pay": {
+    "title": "To'lov",
+    "makeTitle": "To'lov qilish",
+    "settingsTitle": "To'lov ma'lumotlari",
+    "settingsHint": "Mijozlar to'lov qilishi uchun bank va karta ma'lumotlaringizni kiriting.",
+    "currentDebt": "Joriy qarz",
+    "amount": "To'lov summasi",
+    "receipt": "Chek surati",
+    "sendReceipt": "Chekni yuborish",
+    "cashDone": "To'lov qilindi",
+    "confirm": "Tasdiqlash",
+    "reject": "Rad etish",
+    "bankName": "Bank nomi",
+    "bankNamePh": "Masalan: Kapitalbank",
+    "bankAccount": "Hisob raqami",
+    "cardNumber": "Karta raqami",
+    "cardHolder": "Karta egasi",
+    "cardHolderPh": "Ism Familiya",
+    "cashEnabled": "Naqd to'lovga ruxsat",
+    "error": "To'lovni amalga oshirib bo'lmadi",
+    "method": {
+      "label": "To'lov turi",
+      "bank": "Bank",
+      "card": "Karta",
+      "cash": "Naqd"
+    },
+    "status": {
+      "pending": "Kutilmoqda",
+      "confirmed": "Tasdiqlandi",
+      "rejected": "Rad etildi"
+    }
   },
   "tx": {
     "newTitle": "Yangi amal",
@@ -296,6 +329,9 @@
     "tx_pay_order": "{{name}} to'lovni tasdiqladi",
     "tx_reject_delivery": "{{name}} yetkazib berishni rad etdi",
     "tx_reject_order": "{{name}} buyurtmani rad etdi",
-    "tx_reject_return": "{{name}} qaytarishni rad etdi"
+    "tx_reject_return": "{{name}} qaytarishni rad etdi",
+    "pay_new": "{{name}} {{total}} to'lov yubordi",
+    "pay_confirm": "{{name}} to'lovingizni tasdiqladi — qarz: {{debt}}",
+    "pay_reject": "{{name}} to'lovingizni rad etdi"
   }
 }

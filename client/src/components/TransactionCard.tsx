@@ -22,11 +22,9 @@ type Action = 'accept' | 'deliver' | 'pay' | 'reject';
 function actionsFor(type: string, status: string): Action[] {
   if (type === 'delivery') {
     if (status === 'pending') return ['deliver'];
-    if (status === 'delivered') return ['pay'];
   } else if (type === 'order') {
     if (status === 'pending') return ['accept', 'reject'];
     if (status === 'accepted') return ['deliver'];
-    if (status === 'delivered') return ['pay'];
   } else if (type === 'return') {
     if (status === 'pending') return ['accept', 'reject'];
   }

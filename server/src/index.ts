@@ -18,6 +18,7 @@ import partnersRoutes from './routes/partners';
 import storiesRoutes from './routes/stories';
 import rewardsRoutes from './routes/rewards';
 import notificationsRoutes from './routes/notifications';
+import paymentsRoutes from './routes/payments';
 
 const app = express();
 app.set('trust proxy', 1);
@@ -68,6 +69,7 @@ app.use('/api/partners', partnersRoutes);
 app.use('/api/stories', storiesRoutes);
 app.use('/api/rewards', rewardsRoutes);
 app.use('/api/notifications', notificationsRoutes);
+app.use('/api/payments', paymentsRoutes);
 
 app.use((err: any, _req: any, res: any, _next: any) => {
   console.error(err);

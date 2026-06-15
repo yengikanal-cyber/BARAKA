@@ -190,7 +190,40 @@
   "chat": {
     "empty": "Пока нет сообщений. Напишите или добавьте операцию.",
     "messagePh": "Введите сообщение...",
-    "notFound": "Чат не найден"
+    "notFound": "Чат не найден",
+    "attachImage": "Отправить фото"
+  },
+  "pay": {
+    "title": "Оплата",
+    "makeTitle": "Оплатить",
+    "settingsTitle": "Платёжные данные",
+    "settingsHint": "Укажите данные банка и карты, чтобы клиенты могли оплачивать.",
+    "currentDebt": "Текущий долг",
+    "amount": "Сумма оплаты",
+    "receipt": "Фото чека",
+    "sendReceipt": "Отправить чек",
+    "cashDone": "Оплата произведена",
+    "confirm": "Подтвердить",
+    "reject": "Отклонить",
+    "bankName": "Название банка",
+    "bankNamePh": "Например: Капиталбанк",
+    "bankAccount": "Номер счёта",
+    "cardNumber": "Номер карты",
+    "cardHolder": "Владелец карты",
+    "cardHolderPh": "Имя Фамилия",
+    "cashEnabled": "Разрешить наличные",
+    "error": "Не удалось выполнить оплату",
+    "method": {
+      "label": "Способ оплаты",
+      "bank": "Банк",
+      "card": "Карта",
+      "cash": "Наличные"
+    },
+    "status": {
+      "pending": "Ожидает",
+      "confirmed": "Подтверждено",
+      "rejected": "Отклонено"
+    }
   },
   "tx": {
     "newTitle": "Новая операция",
@@ -296,6 +329,9 @@
     "tx_pay_order": "{{name}} подтвердил оплату",
     "tx_reject_delivery": "{{name}} отклонил поставку",
     "tx_reject_order": "{{name}} отклонил заказ",
-    "tx_reject_return": "{{name}} отклонил возврат"
+    "tx_reject_return": "{{name}} отклонил возврат",
+    "pay_new": "{{name}} отправил оплату {{total}}",
+    "pay_confirm": "{{name}} подтвердил вашу оплату — долг: {{debt}}",
+    "pay_reject": "{{name}} отклонил вашу оплату"
   }
 }

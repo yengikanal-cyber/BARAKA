@@ -1,6 +1,6 @@
 import { Router, Response } from 'express';
 import { z } from 'zod';
-import { db, computeDebt, userBrief, notify } from '../db';
+import { db, computeDebt, userBrief, notify, PaymentRow } from '../db';
 import { AuthedRequest, authMiddleware } from '../auth';
 import { resolvePair } from '../context';
 
@@ -52,28 +52,56 @@ router.get('/:otherId', authMiddleware, (req: AuthedRequest, res: Response) => {
   if (!pair) return res.status(404).json({ error: 'no_connection' });
 
   const msgs = db
-    .prepare('SELECT id, sender_id, body, created_at FROM messages WHERE manufacturer_id = ? AND buyer_id = ? ORDER BY created_at, id')
+    .prepare('SELECT id, sender_id, body, image_url, created_at FROM messages WHERE manufacturer_id = ? AND buyer_id = ? ORDER BY created_at, id')
     .all(pair.manufacturerId, pair.buyerId) as any[];
 
   const txIds = db
     .prepare('SELECT id, created_at FROM transactions WHERE manufacturer_id = ? AND buyer_id = ? ORDER BY created_at, id')
     .all(pair.manufacturerId, pair.buyerId) as { id: number; created_at: string }[];
 
+  const payments = db
+    .prepare('SELECT * FROM payments WHERE manufacturer_id = ? AND buyer_id = ? ORDER BY created_at, id')
+    .all(pair.manufacturerId, pair.buyerId) as PaymentRow[];
+
   const timeline = [
     ...msgs.map(m => ({ kind: 'message' as const, at: m.created_at, message: m })),
     ...txIds.map(t => ({ kind: 'transaction' as const, at: t.created_at, transaction: loadTx(t.id)! })),
+    ...payments.map(p => ({ kind: 'payment' as const, at: p.created_at, payment: p })),
   ].sort((a, b) => (a.at < b.at ? -1 : a.at > b.at ? 1 : 0));
+
+  // The seller's payment options, shown to the buyer so they can pay.
+  const seller = db
+    .prepare('SELECT bank_name, bank_account, card_number, card_holder, cash_enabled FROM users WHERE id = ?')
+    .get(pair.manufacturerId) as
+    | { bank_name: string | null; bank_account: string | null; card_number: string | null; card_holder: string | null; cash_enabled: number }
+    | undefined;
 
   res.json({
     other: userBrief(otherId),
     connection_id: pair.connection.id,
     iAmSeller: pair.iAmSeller,
     debt: computeDebt(pair.manufacturerId, pair.buyerId),
+    payInfo: seller
+      ? {
+          bank_name: seller.bank_name,
+          bank_account: seller.bank_account,
+          card_number: seller.card_number,
+          card_holder: seller.card_holder,
+          cash_enabled: seller.cash_enabled === 1,
+        }
+      : null,
     timeline,
   });
 });
 
-const msgSchema = z.object({ body: z.string().trim().min(1).max(2000) });
+const msgSchema = z
+  .object({
+    body: z.string().trim().max(2000).optional(),
+    image_url: z.string().trim().max(300).nullable().optional(),
+  })
+  .refine((d) => (d.body && d.body.length > 0) || (d.image_url && d.image_url.length > 0), {
+    message: 'empty_message',
+  });
 
 router.post('/:otherId/message', authMiddleware, (req: AuthedRequest, res: Response) => {
   const u = req.user!;
@@ -84,12 +112,18 @@ router.post('/:otherId/message', authMiddleware, (req: AuthedRequest, res: Respo
   if (!parsed.success) return res.status(400).json({ error: 'invalid_input' });
 
   const info = db
-    .prepare('INSERT INTO messages (manufacturer_id, buyer_id, sender_id, body) VALUES (?, ?, ?, ?)')
-    .run(pair.manufacturerId as any, pair.buyerId as any, u.id as any, parsed.data.body);
+    .prepare('INSERT INTO messages (manufacturer_id, buyer_id, sender_id, body, image_url) VALUES (?, ?, ?, ?, ?)')
+    .run(
+      pair.manufacturerId as any,
+      pair.buyerId as any,
+      u.id as any,
+      (parsed.data.body ?? '') as any,
+      (parsed.data.image_url ?? null) as any,
+    );
 
   notify(otherId, 'message_new', 'message_new', undefined, { name: u.name, nickname: u.nickname });
 
-  const message = db.prepare('SELECT id, sender_id, body, created_at FROM messages WHERE id = ?').get(Number(info.lastInsertRowid));
+  const message = db.prepare('SELECT id, sender_id, body, image_url, created_at FROM messages WHERE id = ?').get(Number(info.lastInsertRowid));
   res.json({ message });
 });
 

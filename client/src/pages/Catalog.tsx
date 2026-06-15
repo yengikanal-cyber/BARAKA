@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
-import { api, Product } from '../api';
+import { api, mediaUrl, Product } from '../api';
 import { formatMoney } from '../i18n';
 import { ProductFormSheet } from '../components/ProductFormSheet';
 import { ConfirmDialog } from '../components/Sheet';
@@ -120,7 +120,7 @@ export function Catalog() {
                 style={{ width: 84, height: 84, background: 'rgb(var(--accent-500) / 0.08)' }}
               >
                 {p.photo_url ? (
-                  <img src={p.photo_url} alt="" className="w-full h-full object-cover" />
+                  <img src={mediaUrl(p.photo_url)} alt="" className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center muted">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-7 h-7"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="11" r="2"/><path d="M21 17l-5-5-7 7"/></svg>

@@ -1,3 +1,5 @@
+import { mediaUrl } from '../api';
+
 type Props = {
   src?: string | null;
   name: string;
@@ -12,7 +14,7 @@ export function Avatar({ src, name, size = 44, className = '' }: Props) {
   if (src) {
     return (
       <img
-        src={src}
+        src={mediaUrl(src)}
         alt={name}
         style={style}
         className={`rounded-full object-cover ring-2 ring-white/40 dark:ring-white/10 ${className}`}

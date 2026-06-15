@@ -62,6 +62,12 @@ export type User = {
   lng: number | null;
   language: 'uz' | 'ru' | 'en';
   created_at: string;
+  // Seller payment details (manufacturer-only)
+  bank_name: string | null;
+  bank_account: string | null;
+  card_number: string | null;
+  card_holder: string | null;
+  cash_enabled: number; // 0/1
 } & AppearanceSettings;
 
 export type Story = {
@@ -187,18 +193,46 @@ export type ChatMessage = {
   id: number;
   sender_id: number;
   body: string;
+  image_url: string | null;
   created_at: string;
+};
+
+export type PayMethod = 'bank' | 'card' | 'cash';
+export type PayStatus = 'pending' | 'confirmed' | 'rejected';
+
+export type Payment = {
+  id: number;
+  manufacturer_id: number;
+  buyer_id: number;
+  amount: number;
+  method: PayMethod;
+  status: PayStatus;
+  receipt_url: string | null;
+  note: string | null;
+  created_by: number;
+  created_at: string;
+  confirmed_at: string | null;
+};
+
+export type SellerPayInfo = {
+  bank_name: string | null;
+  bank_account: string | null;
+  card_number: string | null;
+  card_holder: string | null;
+  cash_enabled: boolean;
 };
 
 export type TimelineItem =
   | { kind: 'message'; at: string; message: ChatMessage }
-  | { kind: 'transaction'; at: string; transaction: Transaction };
+  | { kind: 'transaction'; at: string; transaction: Transaction }
+  | { kind: 'payment'; at: string; payment: Payment };
 
 export type ChatData = {
   other: { id: number; name: string; nickname: string; role: string; avatar_url: string | null; phone: string | null } | null;
   connection_id: number;
   iAmSeller: boolean;
   debt: number;
+  payInfo: SellerPayInfo | null;
   timeline: TimelineItem[];
 };
 
@@ -212,6 +246,18 @@ export type NewTxItem = {
 };
 
 const API_BASE = (import.meta as any).env?.VITE_API_URL ?? '';
+
+/**
+ * Resolve a server-stored media path (e.g. "/uploads/x.jpg") into a full URL.
+ * In production the frontend (Vercel) and backend (Render) live on different
+ * hosts, so relative "/uploads/..." paths must be prefixed with the API host.
+ */
+export function mediaUrl(path: string | null | undefined): string | undefined {
+  if (!path) return undefined;
+  if (/^(https?:|data:|blob:)/.test(path)) return path;
+  if (path.startsWith('/uploads/')) return `${API_BASE}${path}`;
+  return path;
+}
 
 async function request<T>(path: string, opts: RequestInit = {}): Promise<T> {
   const res = await fetch(`${API_BASE}/api${path}`, {
@@ -262,6 +308,13 @@ export const api = {
 
   updateProfile: (body: Partial<Pick<User, 'name' | 'phone' | 'address' | 'lat' | 'lng' | 'language'>>) =>
     request<{ user: User }>('/profile', { method: 'PATCH', body: JSON.stringify(body) }),
+  updatePaymentInfo: (body: Partial<{
+    bank_name: string | null;
+    bank_account: string | null;
+    card_number: string | null;
+    card_holder: string | null;
+    cash_enabled: boolean;
+  }>) => request<{ user: User }>('/profile/payment', { method: 'PATCH', body: JSON.stringify(body) }),
   updateAppearance: (body: Partial<AppearanceSettings>) =>
     request<{ user: User }>('/profile/appearance', { method: 'PATCH', body: JSON.stringify(body) }),
   uploadAvatar: (file: File) => {
@@ -293,8 +346,8 @@ export const api = {
   deleteProduct: (id: number) =>
     request<{ ok: true }>(`/products/${id}`, { method: 'DELETE' }),
 
-  // Generic image upload (products, stories, rewards)
-  uploadImage: (file: File, kind: 'product' | 'story' | 'reward' = 'product') => {
+  // Generic image upload (products, stories, rewards, chat, receipts)
+  uploadImage: (file: File, kind: 'product' | 'story' | 'reward' | 'chat' | 'receipt' = 'product') => {
     const form = new FormData();
     form.append('image', file);
     return upload<{ url: string }>(`/uploads/image?kind=${kind}`, form);
@@ -351,12 +404,18 @@ export const api = {
 
   // Chat + transactions
   getChat: (otherId: number) => request<ChatData>(`/chat/${otherId}`),
-  sendMessage: (otherId: number, body: string) =>
-    request<{ message: ChatMessage }>(`/chat/${otherId}/message`, { method: 'POST', body: JSON.stringify({ body }) }),
+  sendMessage: (otherId: number, body: string, image_url?: string | null) =>
+    request<{ message: ChatMessage }>(`/chat/${otherId}/message`, { method: 'POST', body: JSON.stringify({ body, image_url: image_url ?? null }) }),
   createTransaction: (body: { otherId: number; type: TxType; items: NewTxItem[]; note?: string | null }) =>
     request<{ transaction: Transaction; debt: number }>('/transactions', { method: 'POST', body: JSON.stringify(body) }),
   txAction: (id: number, action: 'accept' | 'deliver' | 'pay' | 'reject') =>
     request<{ transaction: Transaction; debt: number }>(`/transactions/${id}/action`, { method: 'POST', body: JSON.stringify({ action }) }),
+
+  // Payments
+  createPayment: (body: { otherId: number; amount: number; method: PayMethod; receipt_url?: string | null; note?: string | null }) =>
+    request<{ payment: Payment; debt: number }>('/payments', { method: 'POST', body: JSON.stringify(body) }),
+  paymentAction: (id: number, action: 'confirm' | 'reject') =>
+    request<{ payment: Payment; debt: number }>(`/payments/${id}/action`, { method: 'POST', body: JSON.stringify({ action }) }),
 
   // Team
   listTeam: () => request<{ members: TeamMember[] }>('/team'),

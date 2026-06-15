@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { api, Reward } from '../api';
+import { api, mediaUrl, Reward } from '../api';
 import { formatMoney } from '../i18n';
 import { Avatar } from '../components/Avatar';
 import { Sheet, ConfirmDialog } from '../components/Sheet';
@@ -110,7 +110,7 @@ function RewardCard({ reward, lang, buyerSide, canManage, onEdit, onRemove }: {
 
   return (
     <div className="card !p-0 overflow-hidden">
-      {reward.photo_url && <img src={reward.photo_url} alt="" className="w-full max-h-44 object-cover" />}
+      {reward.photo_url && <img src={mediaUrl(reward.photo_url)} alt="" className="w-full max-h-44 object-cover" />}
       <div className="p-4">
         <div className="flex items-start gap-2">
           <div className="flex-1 min-w-0">
